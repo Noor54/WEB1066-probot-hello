@@ -12,7 +12,12 @@ module.exports = app => {
  const Registry = client.Registry
  const register = new Registry()
  const collectDefaultMetrics = client.collectDefaultMetrics
+ // Probe every 5th second.
 
+  collectDefaultMetrics({register,
+    timeout: 5000,
+    prefix: 'default_'
+  })
  // register metrics on startup
   const prom = new client.Summary({
     name: 'builds_duration_ms',
